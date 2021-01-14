@@ -1,0 +1,4 @@
+- hosts: nginx
+  handlers:
+    - name : Reload nginx
+      service: name=nginx state=reloaded
