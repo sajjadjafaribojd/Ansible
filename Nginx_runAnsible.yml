@@ -1,0 +1,6 @@
+- hosts: nginx
+  tasks:
+    - name : Execute a command using the shell module
+      become: true
+      become_user: root
+      shell: service nginx reload
