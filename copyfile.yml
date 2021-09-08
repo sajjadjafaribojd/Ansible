@@ -1,0 +1,5 @@
+- hosts: Database
+  tasks:
+    - copy:
+        src: /root/JabJ/etc/resolv.conf
+        dest: /etc/
