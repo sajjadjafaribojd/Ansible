@@ -1,0 +1,14 @@
+[all]
+172.16.63.224  
+172.16.63.250  
+172.16.63.225  
+
+[master]
+172.16.63.224  
+
+[worker]
+172.16.63.250  
+172.16.63.225  
+
+[all:vars]
+ansible_python_interpreter=/usr/bin/python3

@@ -1,0 +1,37 @@
+---
+- hosts: all
+
+  tasks:
+  - name: Update package lists
+    apt:
+      update_cache: yes
+
+  - name: Upgrade packages
+    apt:
+      upgrade: dist
+      autoclean: yes
+
+  - name: Install software initial
+    apt:
+      name:  software-properties-common
+      state: present
+
+  - name: Install Proxychain
+    apt:
+      name: proxychains4
+      state: present
+
+  - name: Copy Proxychain configuration file.
+    copy:
+      src: "/home/jabj/ansible/assets/proxychains4.conf"
+      dest: "/etc/"
+
+  - name: Remove old proxy.conf
+    file:
+      path: /etc/apt/apt.conf.d/proxy.conf
+      state: absent
+
+  - name: Copy proxy.conf
+    copy:
+      src: "/home/jabj/ansible/assets/proxy.conf"
+      dest: "/etc/apt/apt.conf.d"    

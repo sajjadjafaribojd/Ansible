@@ -1,0 +1,27 @@
+---
+- hosts: all
+  become: yes
+
+  tasks:
+  - name: Update package lists
+    apt:
+      update_cache: yes
+
+  - name: Upgrade packages
+    apt:
+      upgrade: dist
+      autoclean: yes
+
+  - name: Install software initial
+    apt:
+      name:  software-properties-common
+      state: present
+
+  - name: Add Ansible port and IP to ufw allow list
+    ufw:
+      rule: allow
+      port: 22
+      proto: tcp
+      from_ip: 172.16.63.251
+
+#https://docs.ansible.com/ansible/2.9/modules/apt_module.html#apt-module
