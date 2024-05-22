@@ -19,4 +19,7 @@
         state: present
         name:
           - python3-apt
-          - python3-pycurl    
+          - python3-pycurl 
+    
+    - name: Add ondrej repository for later versions of PHP.
+      apt_repository: repo='ppa:ondrej/php' update_cache=yes         
