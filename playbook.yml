@@ -60,3 +60,7 @@
           - libapache2-mod-php8.2
           - python3-mysqldb
           - mysql-server
+    - name: Disable the firewall (since this is for local dev only).
+      service: 
+        name: ufw
+        state: stopped      
