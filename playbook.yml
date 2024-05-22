@@ -6,6 +6,11 @@
     - vars.yml
 
   pre_tasks:
+    - name: Update source.list with Iran Server repository
+      copy:
+        src: "/home/jabj/ansible/assets/sources.list"
+        dest: "/etc/apt/"
+
     - name: Update apt cache if needed.
       apt: 
         update_cache: yes 
@@ -30,7 +35,7 @@
         repo: 'ppa:ondrej/php'
         update_cache: yes
 
-    - name: "Install Apache, MySQL, PHP, and other dependencies."
+    - name: "Install Apache, MySQL, PHP, and other dependencies." 
       apt:
         state: present
         name:

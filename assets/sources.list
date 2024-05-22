@@ -1,0 +1,11 @@
+# Ubuntu Main Repository
+deb https://mirror.iranserver.com/ubuntu noble main restricted universe multiverse
+
+# Ubuntu Updates Repository
+deb https://mirror.iranserver.com/ubuntu noble-updates main restricted universe multiverse
+
+# Ubuntu Security Repository
+deb https://mirror.iranserver.com/ubuntu noble-security main restricted universe multiverse
+
+# Ubuntu Backports Repository
+deb https://mirror.iranserver.com/ubuntu noble-backports main restricted universe multiverse
