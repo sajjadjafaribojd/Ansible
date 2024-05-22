@@ -8,7 +8,15 @@
   pre_tasks:
     - name: Update apt cache if needed.
       apt: update_cache=yes cache_valid_time=3600
-      
+
   handlers:
     - name: restart apache
       service: name=apache2 state=restarted
+
+  tasks:
+    - name: Get software for apt repository management.
+      apt:
+        state: present
+        name:
+          - python3-apt
+          - python3-pycurl    
