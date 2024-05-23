@@ -1,0 +1,75 @@
+---
+- hosts: all
+  become: yes
+
+  vars_files:
+    - vars.yml
+
+  pre_tasks:
+    - name: Update source.list with Iran Server repository
+      copy:
+        src: "/home/jabj/ansible/assets/sources.list"
+        dest: "/etc/apt/"
+
+    - name: Update apt cache if needed.
+      apt: 
+        update_cache: yes 
+        cache_valid_time: 3600
+
+  handlers:
+    - name: restart apache
+      service: 
+        name: apache2
+        state: restarted
+
+  tasks:
+    - name: Get software for apt repository management.
+      apt:
+        state: present
+        name:
+          - python3-apt
+          - python3-pycurl 
+    
+    - name: Add ondrej repository for later versions of PHP.
+      apt_repository: 
+        repo: 'ppa:ondrej/php'
+        update_cache: yes
+
+    - name: "Install Apache, MySQL, PHP, and other dependencies." 
+      apt:
+        state: present
+        name:
+          - acl
+          - git
+          - curl
+          - unzip
+          - sendmail
+          - apache2
+          - php8.2-common
+          - php8.2-cli
+          - php8.2-dev
+          - php8.2-gd
+          - php8.2-curl
+          - php8.2-opcache
+          - php8.2-xml
+          - php8.2-mbstring
+          - php8.2-pdo
+          - php8.2-mysql
+          - php8.2-apcu
+          - libpcre3-dev
+          - libapache2-mod-php8.2
+          - python3-mysqldb
+          - mysql-server
+    - name: Disable the firewall (since this is for local dev only).
+      service: 
+        name: ufw
+        state: stopped
+
+    - name: "Start Apache, MySQL, and PHP."
+      service: 
+        name: "{{ item }}" 
+        state: started 
+        enabled: yes
+      with_items:
+        - apache2
+        - mysql           
