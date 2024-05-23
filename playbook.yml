@@ -93,4 +93,10 @@
       command: >
         a2ensite {{ domain }}.test
         creates=/etc/apache2/sites-enabled/{{ domain }}.test.conf
-      notify: restart apache                  
+      notify: restart apache
+
+    - name: Disable the default site.
+      command: >
+        a2dissite 000-default
+        removes=/etc/apache2/sites-enabled/000-default.conf
+      notify: restart apache                     
