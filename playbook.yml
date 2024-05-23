@@ -87,4 +87,10 @@
         owner: root
         group: root
         mode: 0644
-      notify: restart apache                 
+      notify: restart apache 
+
+    - name: Enable the Drupal site.
+      command: >
+        a2ensite {{ domain }}.test
+        creates=/etc/apache2/sites-enabled/{{ domain }}.test.conf
+      notify: restart apache                  
