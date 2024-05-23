@@ -121,3 +121,9 @@
         priv: "{{ domain }}.*:ALL"
         host: localhost
         state: present
+
+    - name: Download Composer Installer
+      get_url:
+        url: https://getcomposer.org/installer
+        dest: /tmp/composer-installer.php
+        mode: 0755     
