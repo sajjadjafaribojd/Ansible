@@ -150,4 +150,13 @@
     - name: Check if Drupal project already exists.
       stat:
         path: "{{ drupal_core_path }}/composer.json"
-      register: drupal_composer_json    
+      register: drupal_composer_json
+  
+    - name: Create Drupal project.
+      composer:
+        command: create-project
+        arguments: drupal/recommended-project "{{ drupal_core_path }}"
+        working_dir: "{{ drupal_core_path }}"
+        no_dev: true
+      become_user: www-data
+      when: not drupal_composer_json.stat.exists
