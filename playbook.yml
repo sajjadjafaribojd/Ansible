@@ -72,4 +72,10 @@
         enabled: yes
       with_items:
         - apache2
-        - mysql           
+        - mysql
+
+    - name: Enable Apache rewrite module (required for Drupal).
+      apache2_module: 
+        name: rewrite
+        state: present
+      notify: restart apache                
