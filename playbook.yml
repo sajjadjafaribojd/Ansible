@@ -99,4 +99,12 @@
       command: >
         a2dissite 000-default
         removes=/etc/apache2/sites-enabled/000-default.conf
-      notify: restart apache                     
+      notify: restart apache
+
+    - name: Adjust OpCache memory setting.
+      lineinfile:
+        dest: "/etc/php/8.2/apache2/conf.d/10-opcache.ini"
+        regexp: "^opcache.memory_consumption"
+        line: "opcache.memory_consumption = 96"
+        state: present
+      notify: restart apache                    
