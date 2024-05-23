@@ -107,4 +107,9 @@
         regexp: "^opcache.memory_consumption"
         line: "opcache.memory_consumption = 96"
         state: present
-      notify: restart apache                    
+      notify: restart apache
+
+    - name: Create a MySQL database for Drupal.
+      mysql_db: 
+        db: "{{ domain }}"
+        state: present  
