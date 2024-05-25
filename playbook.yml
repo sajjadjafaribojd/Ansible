@@ -161,3 +161,41 @@
         no_dev: true
       become_user: www-data
       when: not drupal_composer_json.stat.exists
+
+    - name: Add drush to the Drupal site with Composer.
+      composer:
+        command: require
+        arguments: drush/drush:11.*
+        working_dir: "{{ drupal_core_path }}"
+      become_user: www-data
+      when: not drupal_composer_json.stat.exists
+
+    - name: List contents of the Drupal core path
+      command: ls -l {{ drupal_core_path }}
+      register: drupal_core_list
+      changed_when: false
+
+    - name: Show Drupal core path contents
+      debug:
+        msg: "{{ drupal_core_list.stdout_lines }}"
+
+    - name: List contents of the vendor/bin directory
+      command: ls -l {{ drupal_core_path }}/vendor/bin
+      register: vendor_bin_list
+      changed_when: false
+
+    - name: Show vendor/bin directory contents
+      debug:
+        msg: "{{ vendor_bin_list.stdout_lines }}"
+
+    - name: Install Drupal.
+      command: >
+        vendor/bin/drush si -y --site-name="{{ drupal_site_name }}"
+        --account-name=admin
+        --account-pass=admin
+        --db-url=mysql://{{ domain }}:1234@localhost/{{ domain }}
+        --root={{ drupal_core_path }}/web
+        chdir={{ drupal_core_path }}
+        creates={{ drupal_core_path }}/web/sites/default/settings.php
+      notify: restart apache
+      become_user: www-data
