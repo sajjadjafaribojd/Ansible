@@ -1,0 +1,17 @@
+---
+- hosts: all
+  become: yes
+
+  tasks:
+    - name: Gather facts
+      setup:
+        filter: ansible_local
+
+    - name: Debug custom facts
+      debug:
+        msg: "Environment: {{ ansible_local.custom.environment }}, Application: {{ ansible_local.custom.application }}"
+
+    - name: Perform task based on custom fact
+      debug:
+        msg: "This task runs in the production environment for the myapp application"
+      when: ansible_local.custom.environment == 'production' and ansible_local.custom.application == 'myapp'
