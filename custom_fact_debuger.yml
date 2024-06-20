@@ -1,0 +1,12 @@
+---
+- hosts: all
+  become: yes
+
+  tasks:
+    - name: Gather facts
+      setup:
+        filter: ansible_local
+
+    - name: Debug all ansible_local facts
+      debug:
+        var: ansible_local
