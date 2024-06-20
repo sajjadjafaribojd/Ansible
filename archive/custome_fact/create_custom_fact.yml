@@ -4,16 +4,16 @@
 
   tasks:
     - name: Ensure facts.d directory exists
-      files:
+      file:
         path: /etc/ansible/facts.d
         state: directory
-        mode: '0775'
+        mode: '0755'
 
     - name: Create custom fact file
       copy:
-        dest: /etc/ansible/facts.d/custome.fact
+        dest: /etc/ansible/facts.d/custom.fact
         content: |
-          [custome]
+          [localfact]
           environment=production
           application=myapp
-      mode: '0644'
+        mode: '0644'
