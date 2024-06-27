@@ -14,7 +14,7 @@ Run the playbook and provide the necessary inputs when prompted:
 
 ```sh
 ansible-playbook playbook.yml
-
+```
 # Explanation
 
 ## Prompts
