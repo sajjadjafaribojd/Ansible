@@ -1,0 +1,20 @@
+---
+- name: Exmaple Playbook with Conditional Prompt
+  hosts: localhost
+  gather_facts: no
+
+  vars_prompt:
+  - name: "deploy"
+    prompt: "Do you want to deploy (yes/no)?"
+    private: no 
+
+  tasks:
+    - name: Print deployment message
+      debug:
+        msg: "Deployment will start"
+      when: deploy == "yes"
+
+    - name: Print no deployment message
+      debug:
+        msg: "No deployment"
+      when: deploy == "no"       
