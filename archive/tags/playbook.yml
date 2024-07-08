@@ -1,0 +1,39 @@
+---
+- name:  Install and configure web server
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: Install Apache
+      apt:
+        name: apache2
+        state: presnt
+      tags:
+        - Install
+        - webserver
+
+    - name: start Apache service
+      service:
+        name: apache2
+        state: started
+        enabled: yes
+      tags:
+        - configure
+        - webserver
+
+    - name: Copy web content
+      copy:
+        src:  /home/jabj/ansible/assets/apache2/index.html
+        dest: /var/www/html/index.html
+      tags:
+        - configure
+        - content    
+
+    - name: Open firewall for web traffic
+      ufw:
+        state: enabled
+        port: 22
+        proto: tcp
+      tags:
+        - configure
+        - firewall
