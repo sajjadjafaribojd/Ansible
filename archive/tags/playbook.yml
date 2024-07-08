@@ -32,8 +32,8 @@
     - name: Open firewall for web traffic
       ufw:
         state: enabled
-        port: 22
-        proto: tcp
+        port: 80
+        proto: tcp        
       tags:
         - configure
         - firewall
