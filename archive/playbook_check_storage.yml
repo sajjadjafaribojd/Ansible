@@ -1,0 +1,14 @@
+---
+- name: Check Storage Capacity on All Servers
+  hosts: all
+  become: yes
+  gather_facts: no
+
+  tasks:
+    - name: Check disk usage
+      shell: df -h /
+      register: disk_usage
+
+    - name: Display disk usage
+      debug:
+        var: disk_usage.stdout
